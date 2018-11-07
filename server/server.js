@@ -18,10 +18,20 @@ app.use(express.static(publicPath));
 // This let's you register an event listener
 io.on('connection', (socket) => {
     console.log('New user connected')
+    
+    socket.emit('newMessage', {
+        from: 'mimi@yahoo.com',
+        text: 'Hello, are you free this weekend',
+        createdAt: 1234
+    });
 
-socket.on('disconnect', () => {
-    console.log('User disconnected');
-})
+    socket.on('createMessage', (inmail) => {
+        console.log(inmail);
+    })
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    })
 });
 
 
