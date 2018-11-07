@@ -18,6 +18,18 @@ app.use(express.static(publicPath));
 // This let's you register an event listener
 io.on('connection', (socket) => {
     console.log('New user connected')
+    
+    socket.emit('newMessage', {
+            from: 'Admin',
+            text: 'Hello there, welcome to our chat app',
+            createdAt: new Date().getTime()
+        })
+    
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New user joined',
+        createdAt: new Date().getTime()
+    });
 
     socket.on('createMessage', (outbox) => {
         console.log(outbox);
@@ -27,6 +39,16 @@ io.on('connection', (socket) => {
             from: outbox.from,
             createdAt: new Date().getTime()
         })
+
+        
+
+        /* socket.emit.broadcast broadcasts the message to all users except
+        sender */
+        // socket.broadcast.emit('createMessage', {
+        //     from: outbox.from,
+        //     text: outbox.text,
+        //     createdAt: new Date().getTime()
+        // })
     })
 
     socket.on('disconnect', () => {

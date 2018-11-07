@@ -5,6 +5,10 @@ socket.on('connect', function() {
     socket.on('createMessage', function(newMail) {
         console.log(newMail);
     })
+
+    socket.on('newMessage', function(msg) {
+        console.log(msg)
+    })
 })
 
 socket.on('disconnect', function() {
