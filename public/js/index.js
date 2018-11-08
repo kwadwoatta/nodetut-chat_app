@@ -2,8 +2,8 @@ var socket = io();
 socket.on('connect', function() {
     console.log('Connected to server');
 
-    socket.on('createMessage', function(newMail) {
-        console.log(newMail);
+    socket.on('createMessage', function(inbox) {
+        console.log(inbox);
     })
 
     socket.on('newMessage', function(msg) {
