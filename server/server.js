@@ -22,14 +22,13 @@ io.on('connection', (socket) => {
     
     socket.emit('newMessage', generateMessage('Admin', 'Hello there welcome to our chat app'))
     
-    /* socket.emit.broadcast broadcasts the message to all users except
-        sender */
+    /* socket.emit.broadcast broadcasts the message to all users except sender */
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
     socket.on('createMessage', (message, callback) => {
-        console.log(message);
+        console.log('CreateMessage', message);
 
-        io.emit('createMessage', {
+        io.emit('newMessage', {
             text: message.text,
             from: message.from,
             createdAt: new Date().getTime()
@@ -38,12 +37,12 @@ io.on('connection', (socket) => {
         callback('This is from the server');
     });
 
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
-    });
-
     socket.on('createLocationMessage', (coords) => {
         io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    });
+    
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
     });
 });
 
