@@ -73,8 +73,8 @@ $('#message-form').on('submit', function(e) {
     e.preventDefault();
 
     var messageTextBox = $('[name=message]');
+
     socket.emit('createMessage', {
-        from: 'User',
         text: messageTextBox.val()
     }, function() {
         messageTextBox.val(''); // This clears the textbox after message is sent
